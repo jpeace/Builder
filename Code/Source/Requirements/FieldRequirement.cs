@@ -27,7 +27,7 @@ namespace Builder.Requirements
 
         public FieldRequirement<T> IsEqualTo(Func<T,object> expression)
         {
-            var compare = _fieldSpecifier.Field;
+            var compare = expression(_fieldSpecifier.Subject);
             _equality = new EqualityComparer(_fieldSpecifier.Subject, compare);
             return this;
         }

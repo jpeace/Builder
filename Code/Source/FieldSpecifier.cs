@@ -2,7 +2,7 @@ using System;
 
 namespace Builder
 {
-    internal class FieldSpecifier<TSubject,TPropertyType>
+    public class FieldSpecifier<TSubject,TPropertyType>
     {
         public TSubject Subject { get; set; }
         public Func<TSubject, TPropertyType> Expression { get; set; }
