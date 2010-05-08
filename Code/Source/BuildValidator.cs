@@ -32,7 +32,7 @@ namespace Builder
             return requirement;
         }
 
-        protected void AddRequirement(IBuildRequirement requirement)
+        public void AddRequirement(IBuildRequirement requirement)
         {
             if (requirement != null)
             {
