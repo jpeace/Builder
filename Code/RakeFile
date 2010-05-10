@@ -1,0 +1,60 @@
+include FileTest
+
+require 'rubygems'
+require 'zip/zip'
+require 'zip/zipfilesystem'
+require 'albacore'
+
+ROOT_NAMESPACE = "Builder"
+RESULTS_DIR = "Results"
+BUILD_NUMBER = "0.1.0."
+PRODUCT = ROOT_NAMESPACE
+COPYRIGHT = 'Copyright 2010 ProAce Technology Services, Inc. All rights reserved.';
+COMMON_ASSEMBLY_INFO = 'Source/CommonAssemblyInfo.cs';
+CLR_VERSION = "v4.0"
+COMPILE_TARGET = "debug"
+versionNumber = ENV["BUILD_NUMBER"].nil? ? 0 : ENV["BUILD_NUMBER"]
+
+props = { :archive => "Build" }
+
+desc "Compiles and runs unit tests"
+task :all => [:default]
+
+desc "**Default**, compiles and runs tests"
+task :default => [:compile, :unit_test]
+
+desc "Update the version information for the build"
+assemblyinfo :version do |asm|
+  asm.version = BUILD_NUMBER + versionNumber.to_s
+  asm.file_version = BUILD_NUMBER + versionNumber.to_s
+  asm.product_name = PRODUCT
+  asm.description = PRODUCT
+  asm.copyright = COPYRIGHT
+  asm.output_file = COMMON_ASSEMBLY_INFO
+end
+
+desc "Prepares the working directory for a new build"
+task :clean do
+	Dir.mkdir props[:archive] unless exists?(props[:archive])
+  Dir.mkdir RESULTS_DIR unless exists?(RESULTS_DIR)
+end
+
+desc "Compiles the app"
+msbuild :compile => [:clean, :version] do |msb|
+  msb.properties :configuration => COMPILE_TARGET
+  msb.targets :Clean, :Build
+  msb.solution = "Source/#{ROOT_NAMESPACE}.sln"
+  
+  outDir = "Source/#{ROOT_NAMESPACE}/bin/#{COMPILE_TARGET}"
+    
+  Dir.glob(File.join(outDir, "*.{dll,xml}")){|file| 		
+	copy(file, props[:archive]) if File.file?(file)
+  }
+end
+
+desc "Runs all unit tests"
+nunit :unit_test do |nunit|
+	nunit.path_to_command = "lib/NUnit/nunit-console.exe"
+	nunit.assemblies "Source/#{ROOT_NAMESPACE}.Tests/bin/debug/#{ROOT_NAMESPACE}.Tests.dll"
+  nunit.parameters "/out:#{RESULTS_DIR}/nunit_results.xml"
+end
