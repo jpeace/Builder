@@ -47,7 +47,7 @@ namespace Builder
             var fieldInfo = memberExpression.Member as FieldInfo;
             if (fieldInfo != null)
             {
-                propertyInfo.SetValue(Subject, value, BindingFlags.NonPublic | BindingFlags.Instance, null, null, null);
+                fieldInfo.SetValue(Subject, value, BindingFlags.NonPublic | BindingFlags.Instance, null, null);
                 return;
             }
         }

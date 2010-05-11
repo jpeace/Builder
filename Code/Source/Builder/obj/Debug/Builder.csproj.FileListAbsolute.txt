@@ -1,0 +1,5 @@
+c:\Development\R&D\Builder\Origin\Code\Source\Builder\bin\Debug\Builder.dll
+c:\Development\R&D\Builder\Origin\Code\Source\Builder\bin\Debug\Builder.pdb
+c:\Development\R&D\Builder\Origin\Code\Source\Builder\obj\Debug\ResolveAssemblyReference.cache
+c:\Development\R&D\Builder\Origin\Code\Source\Builder\obj\Debug\Builder.dll
+c:\Development\R&D\Builder\Origin\Code\Source\Builder\obj\Debug\Builder.pdb

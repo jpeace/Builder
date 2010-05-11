@@ -1,0 +1,5 @@
+c:\Development\R&D\Builder\Origin\Code\Source\Builder.Tests\bin\Debug\Builder.Tests.dll
+c:\Development\R&D\Builder\Origin\Code\Source\Builder.Tests\bin\Debug\Builder.Tests.pdb
+c:\Development\R&D\Builder\Origin\Code\Source\Builder.Tests\obj\Debug\ResolveAssemblyReference.cache
+c:\Development\R&D\Builder\Origin\Code\Source\Builder.Tests\obj\Debug\Builder.Tests.dll
+c:\Development\R&D\Builder\Origin\Code\Source\Builder.Tests\obj\Debug\Builder.Tests.pdb
