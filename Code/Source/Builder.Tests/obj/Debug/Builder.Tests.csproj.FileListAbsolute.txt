@@ -3,3 +3,17 @@ c:\Development\R&D\Builder\Origin\Code\Source\Builder.Tests\bin\Debug\Builder.Te
 c:\Development\R&D\Builder\Origin\Code\Source\Builder.Tests\obj\Debug\ResolveAssemblyReference.cache
 c:\Development\R&D\Builder\Origin\Code\Source\Builder.Tests\obj\Debug\Builder.Tests.dll
 c:\Development\R&D\Builder\Origin\Code\Source\Builder.Tests\obj\Debug\Builder.Tests.pdb
+C:\Development\Open Source\Builder\Code\Source\Builder.Tests\bin\Debug\Builder.Tests.dll
+C:\Development\Open Source\Builder\Code\Source\Builder.Tests\bin\Debug\Builder.Tests.pdb
+C:\Development\Open Source\Builder\Code\Source\Builder.Tests\bin\Debug\Builder.dll
+C:\Development\Open Source\Builder\Code\Source\Builder.Tests\bin\Debug\nunit.framework.dll
+C:\Development\Open Source\Builder\Code\Source\Builder.Tests\bin\Debug\Rhino.Mocks.dll
+C:\Development\Open Source\Builder\Code\Source\Builder.Tests\bin\Debug\StructureMap.AutoMocking.dll
+C:\Development\Open Source\Builder\Code\Source\Builder.Tests\bin\Debug\StructureMap.dll
+C:\Development\Open Source\Builder\Code\Source\Builder.Tests\bin\Debug\Builder.pdb
+C:\Development\Open Source\Builder\Code\Source\Builder.Tests\bin\Debug\nunit.framework.xml
+C:\Development\Open Source\Builder\Code\Source\Builder.Tests\bin\Debug\Rhino.Mocks.xml
+C:\Development\Open Source\Builder\Code\Source\Builder.Tests\bin\Debug\StructureMap.xml
+C:\Development\Open Source\Builder\Code\Source\Builder.Tests\obj\Debug\ResolveAssemblyReference.cache
+C:\Development\Open Source\Builder\Code\Source\Builder.Tests\obj\Debug\Builder.Tests.dll
+C:\Development\Open Source\Builder\Code\Source\Builder.Tests\obj\Debug\Builder.Tests.pdb

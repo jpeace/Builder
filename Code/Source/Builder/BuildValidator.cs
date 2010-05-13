@@ -4,10 +4,11 @@ using Builder.Requirements;
 
 namespace Builder
 {
-    public class BuildValidator<T>
+    public class BuildValidator<T> : IBuildValidator<T>, IBuildRequirement
     {
         private readonly T _subject;
         private readonly List<IBuildRequirement> _buildRequirements;
+        public Func<T, bool> ExecutionCondition { get; set; }
 
         public BuildValidator(T subject)
         {
@@ -15,14 +16,26 @@ namespace Builder
             _buildRequirements = new List<IBuildRequirement>();
         }
 
-        public void Require(Func<T, object> expression)
+        public IBuildValidator<T> When(Func<T, bool> condition)
         {
-            AddRequirement(new RequiredField<T>(_subject, expression));
+            var conditionalBuilder = new BuildValidator<T>(_subject)
+                                         {
+                                             ExecutionCondition = condition
+                                         };
+            AddRequirement(conditionalBuilder);
+            return conditionalBuilder;
         }
 
-        public void IsPositive(Func<T, int> expression)
+        public IBuildValidator<T> Require(Func<T, object> expression)
         {
-            AddRequirement(new PositiveNumberField<T>(_subject, expression));    
+            AddRequirement(new RequiredField<T>(_subject, expression));
+            return this;
+        }
+
+        public IBuildValidator<T> IsPositive(Func<T, int> expression)
+        {
+            AddRequirement(new PositiveNumberField<T>(_subject, expression));
+            return this;
         }
 
         public FieldRequirement<T> Field(Func<T, object> expression)
@@ -42,6 +55,11 @@ namespace Builder
 
         public void Validate()
         {
+            if (ExecutionCondition != null && !ExecutionCondition(_subject))
+            {
+                return;
+            }
+
             foreach (var requirement in _buildRequirements)
             {
                 requirement.Validate();
