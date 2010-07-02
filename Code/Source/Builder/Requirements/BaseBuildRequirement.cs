@@ -1,14 +1,18 @@
 using System;
+using System.Linq.Expressions;
+using Builder.Util;
 
 namespace Builder.Requirements
 {
-    public abstract class BaseBuildRequirement<TSubject, TField> : IBuildRequirement
+    public abstract class BaseBuildRequirement<TSubject, TValue> : IBuildRequirement
     {
-        protected readonly FieldSpecifier<TSubject, TField> FieldSpecifier;
+        protected readonly TSubject Subject;
+        protected readonly PropertyExpression<TSubject, TValue> PropertyExpression;
 
-        protected BaseBuildRequirement(TSubject subject, Func<TSubject, TField> expression)
+        protected BaseBuildRequirement(TSubject subject, Expression<Func<TSubject, TValue>> expression)
         {
-            FieldSpecifier = new FieldSpecifier<TSubject, TField>(subject, expression);
+            Subject = subject;
+            PropertyExpression = new PropertyExpression<TSubject, TValue>(expression);
         }
         public abstract void Validate();
     }

@@ -1,6 +1,7 @@
 using System;
 using System.Linq.Expressions;
 using System.Reflection;
+using Builder.Util;
 
 namespace Builder
 {
@@ -9,6 +10,7 @@ namespace Builder
     {
         protected readonly TSubject Subject;
         private readonly BuildValidator<TSubject> _buildValidator;
+
         protected Builder()
         {
             var subjectType = typeof (TSubject);
@@ -29,27 +31,10 @@ namespace Builder
             requirements(_buildValidator);
         }
 
-        protected void SetSubjectProperty<TField>(Expression<Func<TSubject, TField>> expression, object value)
+        protected void SetSubjectProperty<TField>(Expression<Func<TSubject, object>> expression, TField value)
         {
-            var memberExpression = expression.Body as MemberExpression;
-            if(memberExpression == null)
-            {
-                throw new ArgumentException("Invalid expression - not a member access.", "expression");
-            }
-
-            var propertyInfo = memberExpression.Member as PropertyInfo;
-            if(propertyInfo != null)
-            {
-                propertyInfo.SetValue(Subject, value, BindingFlags.NonPublic | BindingFlags.Instance, null, null, null);
-                return;
-            }
-
-            var fieldInfo = memberExpression.Member as FieldInfo;
-            if (fieldInfo != null)
-            {
-                fieldInfo.SetValue(Subject, value, BindingFlags.NonPublic | BindingFlags.Instance, null, null);
-                return;
-            }
+            var propertyExpression = new PropertyExpression<TSubject>(expression);
+            propertyExpression.SetValue(Subject, value);
         }
 
         public TSubject Build()

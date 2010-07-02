@@ -1,4 +1,5 @@
 using System;
+using System.Linq.Expressions;
 using Builder.Comparers;
 using Builder.Exceptions;
 
@@ -7,21 +8,21 @@ namespace Builder.Requirements
     public class FieldRequirement<TSubject> : BaseBuildRequirement<TSubject, object>
     {
         private EqualityComparer _equality;
-        public FieldRequirement(TSubject subject, Func<TSubject, object> expression)
+        public FieldRequirement(TSubject subject, Expression<Func<TSubject, object>> expression)
             : base(subject, expression)
         {
         }
 
         public FieldRequirement<TSubject> IsEqualTo(object compare)
         {
-            _equality = new EqualityComparer(FieldSpecifier.Subject, compare);
+            _equality = new EqualityComparer(Subject, compare);
             return this;
         }
 
         public FieldRequirement<TSubject> IsEqualTo(Func<TSubject, object> expression)
         {
-            var compare = expression(FieldSpecifier.Subject);
-            _equality = new EqualityComparer(FieldSpecifier.Subject, compare);
+            var compare = expression(Subject);
+            _equality = new EqualityComparer(Subject, compare);
             return this;
         }
 
@@ -31,12 +32,12 @@ namespace Builder.Requirements
             {
                 if (!_equality.Compare())
                 {
-                    throw new BuilderException(FieldSpecifier.Subject, "The two objects compared were not equal.");
+                    throw new BuilderException(Subject, "The two objects compared were not equal.");
                 }
             }
             else
             {
-                throw new BuilderException(FieldSpecifier.Subject, "No equality relationship specified.");
+                throw new BuilderException(Subject, "No equality relationship specified.");
             }
         }
     }

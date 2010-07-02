@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using Builder.Requirements;
 
 namespace Builder
@@ -26,19 +27,19 @@ namespace Builder
             return conditionalBuilder;
         }
 
-        public IBuildValidator<T> Require(Func<T, object> expression)
+        public IBuildValidator<T> Require(Expression<Func<T, object>> expression)
         {
             AddRequirement(new RequiredField<T>(_subject, expression));
             return this;
         }
 
-        public IBuildValidator<T> IsPositive(Func<T, int> expression)
+        public IBuildValidator<T> IsPositive(Expression<Func<T, int>> expression)
         {
             AddRequirement(new PositiveNumberField<T>(_subject, expression));
             return this;
         }
 
-        public FieldRequirement<T> Field(Func<T, object> expression)
+        public FieldRequirement<T> Field(Expression<Func<T, object>> expression)
         {
             var requirement = new FieldRequirement<T>(_subject, expression);
             AddRequirement(requirement);

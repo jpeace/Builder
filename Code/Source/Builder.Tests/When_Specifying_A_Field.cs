@@ -1,5 +1,5 @@
-using Builder.Exceptions;
 using Builder.Tests.Requirements;
+using Builder.Util;
 using NUnit.Framework;
 
 namespace Builder.Tests
@@ -14,8 +14,8 @@ namespace Builder.Tests
                            {
                                RequiredString = "Hello, World!"
                            };
-            var specifier = new FieldSpecifier<DummyObject, string>(stub, o => o.RequiredString);
-            specifier.Field.ShouldBeTheSameAs(stub.RequiredString);
+            var specifier = new PropertyExpression<DummyObject, string>(o => o.RequiredString);
+            specifier.GetValue(stub).ShouldBeTheSameAs(stub.RequiredString);
         }
     }
 }
